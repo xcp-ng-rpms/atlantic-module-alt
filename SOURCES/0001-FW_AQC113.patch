@@ -1,0 +1,11 @@
+###
+### Include Firmware for AQC113 to module firmware list
+###
+
+--- aq_pci_func.c.good	2024-01-11 22:04:40.416965539 +0000
++++ aq_pci_func.c	2024-01-11 22:05:12.108825109 +0000
+@@ -718,3 +718,4 @@
+ MODULE_FIRMWARE(AQ_FW_AQC100X);
+ MODULE_FIRMWARE(AQ_FW_AQC10XX);
+ MODULE_FIRMWARE(AQ_FW_AQC11XX);
++MODULE_FIRMWARE(AQ_FW_AQC113X);
