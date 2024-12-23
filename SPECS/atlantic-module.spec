@@ -1,14 +1,14 @@
-%define module_dir extra
+%define module_dir updates
 
 Summary: Driver for Atlantic aQuantia AQtion aQuantia Multi-Gigabit PCI Express Family of Ethernet Adapters
 Name: atlantic-module-alt
-Version: 2.5.6
+Version: 2.5.12
 Release: 1%{?dist}
 License: GPL
-#Source taken from https://www.marvel.com/content/dam/marvell/en/drivers/marvel_linux_2.5.6.zip
 Source: %{name}-%{version}.tar.gz
 
 Patch0: 0001-FW_AQC113.patch
+Patch1: 0002-disable-LRO.patch
 
 BuildRequires: gcc
 BuildRequires: kernel-devel
@@ -50,9 +50,14 @@ find %{buildroot}/lib/modules/%{kernel_version} -name "*.ko" -type f | xargs chm
 /lib/modules/%{kernel_version}/*/*.ko
 
 %changelog
+* Fri Dec 6 2024 Andrew Lindh <andrew@netplex.net> - 2.5.12-1
+- Update vendor version of driver 2.5.12
+- Disable LRO for reliable bridging per README
+
 * Mon Feb 5 2024 Andrew Lindh <andrew@netplex.net> - 2.5.6-1
 - Update vendor version of driver 2.5.6, add AQC113 to firmware list
 
 * Fri Feb 17 2023 Andrew Lindh <andrew@netplex.net> - 2.5.5-1
 - Release test version of driver 2.5.5
+- Thanks to github s-master for starting the XCP driver setup
 
