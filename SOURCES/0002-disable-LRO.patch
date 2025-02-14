@@ -1,0 +1,11 @@
+--- aq_cfg.h.orig	2024-11-20 02:19:05.561890188 +0000
++++ aq_cfg.h	2024-11-20 02:20:20.045054248 +0000
+@@ -39,7 +39,7 @@
+ #define AQ_CFG_RX_HDR_SIZE 256U
+ 
+ /* LRO */
+-#define AQ_CFG_IS_LRO_DEF           1U
++#define AQ_CFG_IS_LRO_DEF           0U
+ 
+ /* PTP */
+ #define AQ_CFG_PTP_DEF              1U
