@@ -1,0 +1,46 @@
+From e48f036cf2a588c484ecaef72eb1c8d39787b6b4 Mon Sep 17 00:00:00 2001
+From: Quentin Casasnovas <quentin.casasnovas@vates.tech>
+Date: Tue, 18 Aug 2026 09:13:49 +0200
+Subject: [PATCH] compat: support kernel > 4.19.291.
+
+c368c4defa94 ("net: create netdev->dev_addr assignment helpers") in
+v4.19.291 made the definition of eth_hw_addr_set redundant and leads to
+build errors like:
+
+  In file included from /home/builder/rpmbuild/BUILD/atlantic-module-alt-2.5.12/aq_common.h:22:0,
+		   from /home/builder/rpmbuild/BUILD/atlantic-module-alt-2.5.12/aq_nic.h:13,
+		   from /home/builder/rpmbuild/BUILD/atlantic-module-alt-2.5.12/aq_nic.c:24:
+  /home/builder/rpmbuild/BUILD/atlantic-module-alt-2.5.12/aq_compat.h:306:20: error: redefinition of 'eth_hw_addr_set'
+   static inline void eth_hw_addr_set(struct net_device *dev, const u8 *addr)
+		      ^
+  In file included from /home/builder/rpmbuild/BUILD/atlantic-module-alt-2.5.12/aq_nic.c:12:0:
+  ./include/linux/etherdevice.h:301:20: note: previous definition of 'eth_hw_addr_set' was here
+   static inline void eth_hw_addr_set(struct net_device *dev, const u8 *addr)
+
+Sadly we can't just add another linux version check to enforce the
+definition in the header file when < 4.19.291 because the SUBLEVEL version
+is always zero on our XS-derived kernels, and the SUBLEVEL has been moved
+to an non-exported STABLE_SUBLEVEL variable only visible from the top-level
+linux kernel Makefile.
+
+Signed-off-by: Quentin Casasnovas <quentin.casasnovas@vates.tech>
+---
+ aq_compat.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/aq_compat.h b/aq_compat.h
+index e88729d253b6..bbb19d18f03f 100644
+--- a/aq_compat.h
++++ b/aq_compat.h
+@@ -301,7 +301,7 @@ u16 crc_itu_t(u16 crc, const u8 *buffer, size_t len);
+ #define platform_get_ethdev_address(dev, netdev) (-1)
+ #endif
+ 
+-#if LINUX_VERSION_CODE < KERNEL_VERSION(5, 15, 0) && \
++#if 0 && LINUX_VERSION_CODE < KERNEL_VERSION(5, 15, 0) && \
+ 	RHEL_RELEASE_CODE < RHEL_RELEASE_VERSION(8, 6)
+ static inline void eth_hw_addr_set(struct net_device *dev, const u8 *addr)
+ {
+-- 
+2.43.0
+

@@ -10,6 +10,9 @@ Source: %{name}-%{version}.tar.gz
 Patch0: 0001-FW_AQC113.patch
 Patch1: 0002-disable-LRO.patch
 
+# Support v4.19.291+ kernel
+Patch1000: 0001-compat-support-kernel-4.19.291.patch
+
 BuildRequires: gcc
 BuildRequires: kernel-devel
 Requires: kernel-uname-r = %{kernel_version}
@@ -60,4 +63,3 @@ find %{buildroot}/lib/modules/%{kernel_version} -name "*.ko" -type f | xargs chm
 * Fri Feb 17 2023 Andrew Lindh <andrew@netplex.net> - 2.5.5-1
 - Release test version of driver 2.5.5
 - Thanks to github s-master for starting the XCP driver setup
-
