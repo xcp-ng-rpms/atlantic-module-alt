@@ -3,7 +3,7 @@
 Summary: Driver for Atlantic aQuantia AQtion aQuantia Multi-Gigabit PCI Express Family of Ethernet Adapters
 Name: atlantic-module-alt
 Version: 2.5.12
-Release: 1%{?dist}
+Release: 1.0.kernelpreview.1%{?dist}
 License: GPL
 Source: %{name}-%{version}.tar.gz
 
@@ -14,7 +14,7 @@ Patch1: 0002-disable-LRO.patch
 Patch1000: compat-support-kernel-4.19.291-eth_hw_addr_set.patch
 
 BuildRequires: gcc
-BuildRequires: kernel-devel
+BuildRequires: kernel-devel >= 4.19.325-cip137.8.0.46.16
 Requires: kernel-uname-r = %{kernel_version}
 Requires(post): /usr/sbin/depmod
 Requires(postun): /usr/sbin/depmod
@@ -53,6 +53,10 @@ find %{buildroot}/lib/modules/%{kernel_version} -name "*.ko" -type f | xargs chm
 /lib/modules/%{kernel_version}/*/*.ko
 
 %changelog
+* Mon Nov 16 2026 Quentin Casasnovas <quentin.casasnovas@vates.tech> - 2.5.12-1.0.kernelpreview.1
+- Rebuild for kernel v4.19.325-cip137
+- Port compat layer to be compatible with 4.19.325-cip137
+
 * Fri Dec 6 2024 Andrew Lindh <andrew@netplex.net> - 2.5.12-1
 - Update vendor version of driver 2.5.12
 - Disable LRO for reliable bridging per README
