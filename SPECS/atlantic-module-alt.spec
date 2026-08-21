@@ -3,7 +3,10 @@
 Summary: Driver for Atlantic aQuantia AQtion aQuantia Multi-Gigabit PCI Express Family of Ethernet Adapters
 Name: atlantic-module-alt
 Version: 2.5.12
-Release: 1%{?dist}
+Release: 2%{?dist}
+# Built against new kABI after cip rebase
+Requires: xcpng-kernel-kabi = 4.19.325-cip134+
+
 License: GPL
 Source: %{name}-%{version}.tar.gz
 
@@ -53,6 +56,9 @@ find %{buildroot}/lib/modules/%{kernel_version} -name "*.ko" -type f | xargs chm
 /lib/modules/%{kernel_version}/*/*.ko
 
 %changelog
+* Mon Aug 31 2026 Quentin Casasnovas <quentin.casasnovas@vates.tech> - 2.5.12-2
+- Rebuild for kernel v4.19.325-cip134
+
 * Fri Dec 6 2024 Andrew Lindh <andrew@netplex.net> - 2.5.12-1
 - Update vendor version of driver 2.5.12
 - Disable LRO for reliable bridging per README
