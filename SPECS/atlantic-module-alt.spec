@@ -3,7 +3,7 @@
 Summary: Driver for Atlantic aQuantia AQtion aQuantia Multi-Gigabit PCI Express Family of Ethernet Adapters
 Name: atlantic-module-alt
 Version: 2.5.12
-Release: 1.0.kernelpreview.1%{?dist}
+Release: 1.0.kernelpreview.1.0.testv0.1%{?dist}
 License: GPL
 Source: %{name}-%{version}.tar.gz
 
